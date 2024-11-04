@@ -2,6 +2,8 @@
 
 SchemaCraft is a tool that allows you to convert a given JSON payload into a JSON schema based on the [2019-09 JSON Schema specification](https://json-schema.org/draft/2019-09/schema).
 
+https://github.com/user-attachments/assets/afc87bc4-a035-4b56-80e9-6eb4a9f49dc5
+
 ## 📑 Table of Contents
 
 - [Motivation](#motivation)
