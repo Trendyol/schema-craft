@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "extends": [
+    "next",
+    "next/core-web-vitals"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "globals": {
+    "React": "readonly"
+  },
+  "rules": {
+    // "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "react/display-name": "off",
+    "prettier/prettier": "error"
+  }
+}
