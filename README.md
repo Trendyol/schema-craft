@@ -53,7 +53,7 @@ You can try it out with a live demo on http://demolink.net
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please do not forget to check [CODE_OF_CONDUCT](CODE_OF_CONDUCT) follow these steps:
+Contributions are welcome! Please do not forget to check [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) follow these steps:
 
 1. 🍴 Fork the repository.
 2. 🛠️ Create a new branch (`git checkout -b feature-branch`).
