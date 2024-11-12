@@ -24,7 +24,7 @@ JSON Schema offers a standardized way to define structures, but creating schemas
 
 ## 💻 Demo
 
-You can try it out with a live demo on http://demolink.net
+You can try it out with a live demo on https://schema-craft.vercel.app
 
 ## 🧰 Run Locally
 
