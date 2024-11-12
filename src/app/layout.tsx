@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           <AppLayout>{children}</AppLayout>
         </AntdRegistry>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
     </html>
   );
 }
