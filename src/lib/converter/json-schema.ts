@@ -132,7 +132,9 @@ function convertSchemaProperties(fieldProperties: Array<JSONSchemaFieldProperty>
   return properties;
 }
 
-function getDefaultValueOfProperties(type: JSONSchemaFieldType): JSONSchemaObject["properties"][string]["default"] {
+export function getDefaultValueOfProperties(
+  type: JSONSchemaFieldType
+): JSONSchemaObject["properties"][string]["default"] {
   switch (type) {
     case "integer":
       return 0;
@@ -151,9 +153,7 @@ function getDefaultValueOfProperties(type: JSONSchemaFieldType): JSONSchemaObjec
   }
 }
 
-function getPropertyType(value: unknown): JSONSchemaFieldType {
-  if (typeof value !== "boolean" && !value) return "null";
-
+export function getPropertyType(value: unknown): JSONSchemaFieldType {
   switch (typeof value) {
     case "boolean":
       return "boolean";
@@ -164,6 +164,8 @@ function getPropertyType(value: unknown): JSONSchemaFieldType {
     case "object":
       if (Array.isArray(value)) {
         return "array";
+      } else if (value === null) {
+        return "null";
       } else {
         return "object";
       }
