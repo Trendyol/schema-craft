@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { sendGAEvent } from "@next/third-parties/google";
+
 import { Layout, Steps, message, Typography, Card, Form, theme } from "antd";
 
 import copy from "copy-to-clipboard";
@@ -25,6 +27,7 @@ export default function HomePage() {
 
   const prevStep = () => {
     if (currentStep > 0) {
+      sendGAEvent("event", "previous_button_clicked", { currentStep: currentStep });
       setCurrentStep(currentStep - 1);
     }
   };
@@ -40,6 +43,7 @@ export default function HomePage() {
     }
 
     if (currentStep === 0) {
+      sendGAEvent("event", "next_button_clicked", { currentStep: currentStep });
       enhancerTableForm.setFieldsValue(convertJSONtoFieldProperties(JSON.parse(rawJson) as JSONObject));
       setCurrentStep(1);
     } else if (currentStep === 1) {
@@ -48,6 +52,7 @@ export default function HomePage() {
       enhancerTableForm
         .validateFields()
         .then(() => {
+          sendGAEvent("event", "next_button_clicked", { currentStep: currentStep });
           setJsonSchema(generateJSONSchema(enhancedJsonFields));
           setCurrentStep(currentStep + 1);
         })
@@ -99,6 +104,7 @@ export default function HomePage() {
             onPrev={prevStep}
             onNext={nextStep}
             onCopy={() => {
+              sendGAEvent("event", "copy_to_clipboard_button_clicked");
               copy(JSON.stringify(jsonSchema, null, 2));
               message.success("Copied!");
             }}
