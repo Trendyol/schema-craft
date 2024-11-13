@@ -1,1 +1,6 @@
-export { generateJSONSchema, convertJSONToFieldProperties as convertJSONtoFieldProperties } from "./json-schema";
+export {
+  getPropertyType,
+  getDefaultValueOfProperties,
+  generateJSONSchema,
+  convertJSONToFieldProperties as convertJSONtoFieldProperties,
+} from "./json-schema";

@@ -1,4 +1,4 @@
-import { JSONSchemaFieldProperty } from "@/types/json-schema";
+import { JSONSchemaFieldProperty, JSONSchemaObject } from "@/types/json-schema";
 import { generateFakeData } from "./generators/generate-fake-data";
 
 export const simpleObj = {
@@ -192,6 +192,46 @@ export const complexNestedObjFieldProperties = [
     arrayItemType: undefined,
     format: undefined,
     required: false,
+    nullable: true,
+    description: "",
+  },
+] satisfies JSONSchemaFieldProperty[];
+
+export const basicSchemaObj = {
+  $id: "http://example.com/example.json",
+  $schema: "https://json-schema.org/draft/2019-09/schema",
+  default: {},
+  title: "Root Schema",
+  type: "object",
+  required: [],
+  properties: {},
+} satisfies JSONSchemaObject;
+
+export const requiredFieldProperties = [
+  {
+    name: "name",
+    type: "string",
+    arrayItemType: undefined,
+    format: undefined,
+    required: true,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "age",
+    type: "string",
+    arrayItemType: undefined,
+    format: undefined,
+    required: false,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "address.city",
+    type: "string",
+    arrayItemType: undefined,
+    format: undefined,
+    required: true,
     nullable: true,
     description: "",
   },
