@@ -154,8 +154,6 @@ export function getDefaultValueOfProperties(
 }
 
 export function getPropertyType(value: unknown): JSONSchemaFieldType {
-  if (typeof value !== "boolean" && !value) return "null";
-
   switch (typeof value) {
     case "boolean":
       return "boolean";
@@ -166,6 +164,8 @@ export function getPropertyType(value: unknown): JSONSchemaFieldType {
     case "object":
       if (Array.isArray(value)) {
         return "array";
+      } else if (value === null) {
+        return "null";
       } else {
         return "object";
       }
