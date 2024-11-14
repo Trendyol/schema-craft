@@ -73,6 +73,53 @@ export const simpleNestesObjFieldProperties = [
     description: "",
   },
 ] satisfies JSONSchemaFieldProperty[];
+export const simpleNestesObjFieldPropertiesWithRequiredFields = [
+  {
+    name: "a",
+    type: "object",
+    arrayItemType: undefined,
+    format: undefined,
+    required: true,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "a.b",
+    type: "object",
+    arrayItemType: undefined,
+    format: undefined,
+    required: true,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "a.b.c",
+    type: "object",
+    arrayItemType: undefined,
+    format: undefined,
+    required: false,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "a.b.c.id",
+    type: "integer",
+    arrayItemType: undefined,
+    format: undefined,
+    required: true,
+    nullable: true,
+    description: "",
+  },
+  {
+    name: "a.b.c.key",
+    type: "string",
+    arrayItemType: undefined,
+    format: undefined,
+    required: false,
+    nullable: true,
+    description: "",
+  },
+] satisfies JSONSchemaFieldProperty[];
 
 export const complexNestedObj = {
   name: generateFakeData("string"),
@@ -197,7 +244,7 @@ export const complexNestedObjFieldProperties = [
   },
 ] satisfies JSONSchemaFieldProperty[];
 
-export const basicSchemaObj = {
+export const baseSchemaObj = {
   $id: "http://example.com/example.json",
   $schema: "https://json-schema.org/draft/2019-09/schema",
   default: {},
@@ -206,33 +253,3 @@ export const basicSchemaObj = {
   required: [],
   properties: {},
 } satisfies JSONSchemaObject;
-
-export const requiredFieldProperties = [
-  {
-    name: "name",
-    type: "string",
-    arrayItemType: undefined,
-    format: undefined,
-    required: true,
-    nullable: true,
-    description: "",
-  },
-  {
-    name: "age",
-    type: "string",
-    arrayItemType: undefined,
-    format: undefined,
-    required: false,
-    nullable: true,
-    description: "",
-  },
-  {
-    name: "address.city",
-    type: "string",
-    arrayItemType: undefined,
-    format: undefined,
-    required: true,
-    nullable: true,
-    description: "",
-  },
-] satisfies JSONSchemaFieldProperty[];

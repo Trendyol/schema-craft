@@ -6,17 +6,17 @@ import {
 } from "@/lib/converter";
 
 import {
-  basicSchemaObj,
+  baseSchemaObj,
   complexNestedObj,
   complexNestedObjFieldProperties,
-  requiredFieldProperties,
   simpleNestedObj,
   simpleNestesObjFieldProperties,
   simpleObj,
   simpleObjFieldProperties,
+  simpleNestesObjFieldPropertiesWithRequiredFields,
 } from "../../../../mocks/test-data";
 
-describe("json-schema module tests", () => {
+describe("convertJSONtoFieldProperties function tests", () => {
   test("should convert json object and return field properties for a simple object", () => {
     const result = convertJSONtoFieldProperties(simpleObj);
 
@@ -92,17 +92,19 @@ describe("getPropertyType function tests", () => {
 });
 
 describe("generateJSONSchema function tests", () => {
-  test("should return a schema with correct base structure", () => {
+  test("should convert empty field properties array and return base json schema object", () => {
     const result = generateJSONSchema([]);
 
-    expect(result).toMatchObject(basicSchemaObj);
+    expect(result).toEqual(baseSchemaObj);
   });
 
-  test("should add required properties to schema based on fieldProperties", () => {
-    const result = generateJSONSchema(requiredFieldProperties);
+  test("should convert field properties that has required fields and return json schema", () => {
+    const result = generateJSONSchema(simpleNestesObjFieldPropertiesWithRequiredFields);
 
-    expect(result.required).toContain("name");
-    expect(result.required).not.toContain("age");
-    expect(result.required).not.toContain("address.city");
+    expect(result.required).toEqual(["a"]);
+    expect(result.properties["a"].required).toEqual(["b"]);
+    expect(result.properties["a"].properties!["b"].required).toEqual([]);
+    expect(result.properties["a"].properties!["b"].properties!["c"].required).toEqual(["id"]);
+    expect(result.properties["a"].properties!["b"].properties!["c"]).not.toContain("key");
   });
 });
