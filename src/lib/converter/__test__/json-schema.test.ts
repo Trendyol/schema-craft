@@ -5,6 +5,7 @@ import {
   getPropertyType,
 } from "@/lib/converter";
 
+import { JSONSchemaFieldType, JSONSchemaObject, JSONSchemaFieldProperty, JSONObject } from "@/types/json-schema";
 import {
   baseSchemaObj,
   complexNestedObj,
@@ -12,9 +13,116 @@ import {
   simpleNestedObj,
   simpleNestesObjFieldProperties,
   simpleObj,
+  expectedSchema,
   simpleObjFieldProperties,
   simpleNestesObjFieldPropertiesWithRequiredFields,
 } from "../../../../mocks/test-data";
+
+describe("generateJSONSchema", () => {
+  it("should generate a JSON schema with correct structure", () => {
+    const fieldProperties: JSONSchemaFieldProperty[] = [
+      { name: "name", type: "string", required: true, nullable: false, description: "The name field" },
+      { name: "age", type: "number", required: false, nullable: true, description: "The age field" },
+      { name: "address", type: "object", required: false, nullable: false, description: "The address" },
+      {
+        name: "address.city",
+        type: "string",
+        required: true,
+        nullable: false,
+        description: "The address.city within the address",
+      },
+      {
+        name: "address.zipCode",
+        type: "number",
+        required: false,
+        nullable: true,
+        description: "The address.zip code within the address",
+      },
+    ];
+
+    const result = generateJSONSchema(fieldProperties);
+
+    expect(result).toEqual(expectedSchema);
+  });
+});
+
+describe("convertJSONToFieldProperties", () => {
+  test("should first level JSON object", () => {
+    const json = {
+      name: "John",
+      age: 30,
+      isEmployed: true,
+    };
+
+    const result = convertJSONtoFieldProperties(json);
+
+    expect(result).toEqual([
+      getExpectedField("name", "string"),
+      getExpectedField("age", "integer"),
+      getExpectedField("isEmployed", "boolean"),
+    ]);
+  });
+
+  test("should handle a nested JSON object", () => {
+    const json = {
+      user: {
+        name: "Alice",
+        age: 25,
+      },
+    };
+
+    const result = convertJSONtoFieldProperties(json);
+
+    expect(result).toEqual([
+      getExpectedField("user", "object"),
+      getExpectedField("user.name", "string"),
+      getExpectedField("user.age", "integer"),
+    ]);
+  });
+
+  test("should handle an array of primitives", () => {
+    const json = {
+      tags: ["typescript", "jest"],
+    };
+
+    const result = convertJSONtoFieldProperties(json);
+
+    expect(result).toEqual([getExpectedField("tags", "array", "string")]);
+  });
+
+  test("should handle an array of objects", () => {
+    const json = {
+      users: [
+        { name: "Bob", age: 40 },
+        { name: "Eve", age: 35 },
+      ],
+    };
+
+    const result = convertJSONtoFieldProperties(json);
+
+    expect(result).toEqual([
+      getExpectedField("users", "array", "object"),
+      getExpectedField("users.name", "string"),
+      getExpectedField("users.age", "integer"),
+    ]);
+  });
+
+  test("should handle nested arrays of objects", () => {
+    const json = {
+      categories: [{ name: "Fiction", books: [{ title: "1984", author: "Orwell" }] }],
+    };
+
+    const result = convertJSONtoFieldProperties(json);
+
+    expect(result).toEqual([
+      getExpectedField("categories", "array", "object"),
+      getExpectedField("categories.name", "string"),
+      getExpectedField("categories.books", "array", "object"),
+      getExpectedField("categories.books.title", "string"),
+      getExpectedField("categories.books.author", "string"),
+    ]);
+  });
+});
 
 describe("convertJSONtoFieldProperties function tests", () => {
   test("should convert json object and return field properties for a simple object", () => {
@@ -107,4 +215,18 @@ describe("generateJSONSchema function tests", () => {
     expect(result.properties["a"].properties!["b"].properties!["c"].required).toEqual(["id"]);
     expect(result.properties["a"].properties!["b"].properties!["c"]).not.toContain("key");
   });
+});
+
+const getExpectedField = (
+  name: string,
+  type: JSONSchemaFieldType,
+  arrayItemType?: JSONSchemaFieldType
+): JSONSchemaFieldProperty => ({
+  name,
+  nullable: true,
+  required: false,
+  description: "",
+  type,
+  arrayItemType,
+  format: undefined,
 });
