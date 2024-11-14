@@ -253,3 +253,51 @@ export const baseSchemaObj = {
   required: [],
   properties: {},
 } satisfies JSONSchemaObject;
+
+export const expectedSchema = {
+  $id: "http://example.com/example.json",
+  $schema: "https://json-schema.org/draft/2019-09/schema",
+  default: {},
+  title: "Root Schema",
+  type: "object",
+  required: ["name"],
+  properties: {
+    name: {
+      type: "string",
+      default: "",
+      description: "The name field",
+      items: undefined,
+      title: "The name of Schema",
+    },
+    age: {
+      type: ["number", "null"],
+      default: 0,
+      description: "The age field",
+      items: undefined,
+      title: "The age of Schema",
+    },
+    address: {
+      type: "object",
+      default: {},
+      title: "The address of Schema",
+      description: "The address",
+      required: ["city"],
+      properties: {
+        city: {
+          type: "string",
+          default: "",
+          description: "The address.city within the address",
+          items: undefined,
+          title: "The address.city of Schema",
+        },
+        zipCode: {
+          type: ["number", "null"],
+          default: 0,
+          description: "The address.zip code within the address",
+          items: undefined,
+          title: "The address.zipCode of Schema",
+        },
+      },
+    },
+  },
+};
