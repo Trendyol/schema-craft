@@ -6,11 +6,11 @@ https://github.com/user-attachments/assets/afc87bc4-a035-4b56-80e9-6eb4a9f49dc5
 
 ## 📑 Table of Contents
 
-- [Motivation](#motivation)
-- [Features](#features)
-- [Demo](#demo)
-- [Run Locally](#usage)
-- [Contributing](#contributing)
+- [Motivation](#-motivation)
+- [Features](#-features)
+- [Demo](#-demo)
+- [Run Locally](#-usage)
+- [Contributing](#-contributing)
 
 ## 💡 Motivation
 
