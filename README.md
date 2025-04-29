@@ -1,3 +1,5 @@
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Trendyol/schema-craft/badge)](https://scorecard.dev/viewer/?uri=github.com/Trendyol/schema-craft)
 # 🛠️ SchemaCraft
 
 SchemaCraft is a tool that allows you to convert a given JSON payload into a JSON schema based on the [2019-09 JSON Schema specification](https://json-schema.org/draft/2019-09/schema).
