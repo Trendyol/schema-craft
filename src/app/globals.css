@@ -8,3 +8,7 @@
 body {
   max-height: 100dvh;
 }
+
+.ant-table {
+  overflow: hidden;
+}
